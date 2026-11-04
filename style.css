@@ -1,0 +1,1464 @@
+/* =========================================
+   VARIABLES Y ESTILOS BASE (TEMA ROJO Y NEGRO)
+   ========================================= */
+
+:root {
+  /* Gama de Rojos */
+  --rojo-principal: #e50914;
+  --rojo-brillante: #ff2a38;
+  --rojo-oscuro: #9b0c13;
+  --rojo-glow: rgba(229, 9, 20, 0.45);
+  --rojo-glow-intenso: rgba(255, 42, 56, 0.7);
+  --rojo-suave: rgba(229, 9, 20, 0.12);
+
+  /* Gama de Negros y Grises Oscuros */
+  --negro-fondo: #0a0a0d;
+  --negro-seccion: #101015;
+  --negro-tarjeta: #171720;
+  --negro-tarjeta-hover: #1f1f2b;
+  --negro-input: #121218;
+  --borde-tarjeta: #272736;
+  --borde-rojo: rgba(229, 9, 20, 0.4);
+
+  /* Tipografía y Textos */
+  --blanco: #ffffff;
+  --texto-principal: #f3f4f6;
+  --texto-secundario: #a1a1aa;
+  --texto-mute: #71717a;
+}
+
+/* Reinicio básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+  color: var(--texto-principal);
+  background-color: var(--negro-fondo);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Contenedor centrado */
+.container {
+  width: min(1140px, 92%);
+  margin: auto;
+}
+
+/* =========================================
+   HEADER Y MENÚ DE NAVEGACIÓN
+   ========================================= */
+
+.header {
+  position: sticky;
+  top: 0;
+  background: rgba(10, 10, 13, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 2px solid var(--rojo-principal);
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 0;
+}
+
+.logo {
+  color: var(--blanco);
+  font-weight: 900;
+  font-size: 1.45rem;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: transform 0.2s ease;
+}
+
+.logo-img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.8));
+  transition: transform 0.25s ease;
+}
+
+.logo:hover .logo-img {
+  transform: scale(1.08);
+}
+
+.logo-text {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.logo:hover {
+  transform: scale(1.03);
+}
+
+.logo span {
+  color: var(--rojo-brillante);
+  text-shadow: 0 0 12px var(--rojo-glow);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.8rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--texto-secundario);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  padding: 0.3rem 0;
+  transition: color 0.25s ease;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--rojo-brillante);
+  box-shadow: 0 0 8px var(--rojo-glow);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--blanco);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Botón menú móvil profesional */
+.menu-btn {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--borde-tarjeta);
+  padding: 0.6rem;
+  border-radius: 8px;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+  transition: all 0.2s ease;
+}
+
+.menu-btn .bar {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--blanco);
+  border-radius: 2px;
+  transition: background 0.2s ease;
+}
+
+.menu-btn:hover {
+  border-color: var(--rojo-principal);
+}
+
+.menu-btn:hover .bar {
+  background: var(--rojo-brillante);
+}
+
+/* =========================================
+   HERO / PORTADA
+   ========================================= */
+
+.hero {
+  min-height: 75vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(10, 10, 13, 0.78) 0%, rgba(10, 10, 13, 0.94) 100%),
+    radial-gradient(ellipse at 50% 30%, rgba(229, 9, 20, 0.28) 0%, transparent 65%),
+    url("https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+  color: var(--blanco);
+  padding: 4rem 0;
+}
+
+.hero-content {
+  text-align: center;
+  max-width: 820px;
+}
+
+.hero-badge-wrap {
+  margin-bottom: 1.8rem;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-logo-badge {
+  width: 200px;
+  height: auto;
+  max-height: 235px;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 35px rgba(229, 9, 20, 0.5)) drop-shadow(0 6px 18px rgba(0, 0, 0, 0.9));
+  animation: heroBadgePulse 3.5s ease-in-out infinite alternate;
+  transition: transform 0.3s ease;
+}
+
+.hero-logo-badge:hover {
+  transform: scale(1.06) rotate(-2deg);
+}
+
+@keyframes heroBadgePulse {
+  0% {
+    transform: translateY(0);
+    filter: drop-shadow(0 8px 20px rgba(229, 9, 20, 0.35)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.8));
+  }
+
+  100% {
+    transform: translateY(-6px);
+    filter: drop-shadow(0 14px 30px rgba(229, 9, 20, 0.65)) drop-shadow(0 6px 15px rgba(0, 0, 0, 0.9));
+  }
+}
+
+.hero-tag {
+  display: inline-block;
+  background: var(--rojo-suave);
+  color: var(--rojo-brillante);
+  border: 1px solid var(--borde-rojo);
+  padding: 0.35rem 1rem;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 0 15px rgba(229, 9, 20, 0.2);
+}
+
+.hero h1 {
+  font-size: clamp(2.3rem, 6vw, 4.2rem);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  margin-bottom: 1.2rem;
+  text-transform: uppercase;
+}
+
+.hero h1 span {
+  color: var(--rojo-brillante);
+  text-shadow: 0 0 25px var(--rojo-glow);
+}
+
+.hero p {
+  font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+  color: var(--texto-secundario);
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* =========================================
+   BOTONES CHULOS (ESTILO DEPORTIVO MODERNO)
+   ========================================= */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.95rem 2.2rem;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border: none;
+  font-family: inherit;
+}
+
+/* Efecto de destello al pasar el cursor */
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transition: left 0.6s ease;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+/* Botón Principal (Rojo Neón y Degradado Potente) */
+.btn,
+.btn-primary {
+  background: linear-gradient(135deg, var(--rojo-brillante) 0%, var(--rojo-principal) 60%, var(--rojo-oscuro) 100%);
+  color: var(--blanco);
+  box-shadow: 0 6px 20px var(--rojo-glow), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn:hover,
+.btn-primary:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 10px 30px var(--rojo-glow-intenso), 0 0 20px rgba(229, 9, 20, 0.5);
+  color: var(--blanco);
+}
+
+.btn:active,
+.btn-primary:active {
+  transform: translateY(-1px) scale(0.99);
+  box-shadow: 0 4px 15px var(--rojo-glow);
+}
+
+.btn:disabled,
+.btn-primary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+  filter: grayscale(30%);
+}
+
+/* Botón Secundario (Dark Outline con Borde Rojo) */
+.btn-outline {
+  background: rgba(18, 18, 24, 0.85);
+  color: var(--blanco);
+  border: 2px solid var(--rojo-principal);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.btn-outline:hover {
+  background: var(--rojo-principal);
+  color: var(--blanco);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 25px var(--rojo-glow);
+}
+
+.btn-outline:active {
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   SECCIONES GENERALES
+   ========================================= */
+
+.section {
+  padding: 5.5rem 0;
+  position: relative;
+}
+
+.section-alt {
+  background-color: var(--negro-seccion);
+  border-top: 1px solid var(--borde-tarjeta);
+  border-bottom: 1px solid var(--borde-tarjeta);
+}
+
+.section-title {
+  text-align: center;
+  font-size: clamp(2rem, 4vw, 2.7rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--blanco);
+  margin-bottom: 0.4rem;
+  position: relative;
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: var(--rojo-principal);
+  margin: 0.8rem auto 0;
+  border-radius: 2px;
+  box-shadow: 0 0 10px var(--rojo-glow);
+}
+
+.section-sub {
+  text-align: center;
+  color: var(--texto-secundario);
+  font-size: 1.05rem;
+  margin-bottom: 3.2rem;
+}
+
+/* =========================================
+   SOBRE NOSOTROS
+   ========================================= */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.about-card {
+  background: var(--negro-tarjeta);
+  padding: 2.2rem;
+  border-radius: 16px;
+  border: 1px solid var(--borde-tarjeta);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+}
+
+.about-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--rojo-principal), var(--rojo-brillante));
+  opacity: 0.8;
+  transition: height 0.3s ease, opacity 0.3s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--borde-rojo);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6), 0 0 20px rgba(229, 9, 20, 0.15);
+}
+
+.about-card:hover::before {
+  height: 6px;
+  opacity: 1;
+}
+
+/* Tarjeta destacada de competición actual */
+.about-card-featured {
+  border-color: rgba(229, 9, 20, 0.45);
+  background: linear-gradient(165deg, #1c1822 0%, #16121a 100%);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 18px rgba(229, 9, 20, 0.12);
+}
+
+.about-card-featured:hover {
+  border-color: var(--rojo-brillante);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.7), 0 0 25px rgba(229, 9, 20, 0.3);
+}
+
+.about-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--texto-secundario);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.25rem 0.7rem;
+  border-radius: 20px;
+  margin-bottom: 0.9rem;
+}
+
+.badge-destacado {
+  color: var(--rojo-brillante);
+  background: var(--rojo-suave);
+  border-color: var(--borde-rojo);
+  box-shadow: 0 0 10px rgba(229, 9, 20, 0.2);
+}
+
+.about-card h3 {
+  color: var(--blanco);
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.about-card h3::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 1.2rem;
+  background: var(--rojo-brillante);
+  border-radius: 2px;
+  box-shadow: 0 0 8px var(--rojo-glow);
+}
+
+.about-card p {
+  color: var(--texto-secundario);
+  line-height: 1.7;
+  font-size: 0.98rem;
+}
+
+.about-card p strong {
+  color: var(--blanco);
+}
+
+.about-extra {
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* =========================================
+   PLANTILLA (CAROUSEL DE CARTAS INTERACTIVAS)
+   ========================================= */
+
+.cards-showcase {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 1.5rem auto 0;
+  perspective: 1200px;
+}
+
+.cards-deck {
+  position: relative;
+  width: 320px;
+  height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.player-card-deck {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 22px;
+  cursor: pointer;
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.45s ease, box-shadow 0.45s ease;
+  will-change: transform, opacity;
+}
+
+/* Carta Activa Central */
+.player-card-deck.card-active {
+  z-index: 10;
+  transform: translateX(0) scale(1);
+  opacity: 1;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 35px var(--rojo-glow);
+}
+
+.player-card-deck.card-active:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.9), 0 0 45px var(--rojo-glow-intenso);
+}
+
+/* Cartas de Vista Previa a los Lados */
+.player-card-deck.card-left {
+  z-index: 5;
+  transform: translateX(-160px) scale(0.84) rotateY(12deg);
+  opacity: 0.45;
+  filter: brightness(0.65);
+}
+
+.player-card-deck.card-left:hover {
+  opacity: 0.75;
+  filter: brightness(0.9);
+  transform: translateX(-145px) scale(0.88) rotateY(8deg);
+}
+
+.player-card-deck.card-right {
+  z-index: 5;
+  transform: translateX(160px) scale(0.84) rotateY(-12deg);
+  opacity: 0.45;
+  filter: brightness(0.65);
+}
+
+.player-card-deck.card-right:hover {
+  opacity: 0.75;
+  filter: brightness(0.9);
+  transform: translateX(145px) scale(0.88) rotateY(-8deg);
+}
+
+/* Animaciones al cambiar de carta */
+.cards-deck.anim-shift-right .card-active {
+  animation: slideInFromLeft 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.cards-deck.anim-shift-left .card-active {
+  animation: slideInFromRight 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(90px) scale(0.9) rotateY(-15deg);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateX(0) scale(1) rotateY(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(-90px) scale(0.9) rotateY(15deg);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateX(0) scale(1) rotateY(0deg);
+    opacity: 1;
+  }
+}
+
+/* Estilo interior del cromo deportivo */
+.card-inner {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(155deg, #222230 0%, #15151e 55%, #0d0d12 100%);
+  border: 2px solid var(--borde-tarjeta);
+  border-radius: 22px;
+  padding: 1.6rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15);
+}
+
+.card-active .card-inner {
+  border-color: var(--rojo-principal);
+}
+
+/* Franja y destello en la carta */
+.card-inner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--rojo-oscuro), var(--rojo-brillante), var(--rojo-oscuro));
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+}
+
+.card-club-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: 900;
+  font-size: 0.8rem;
+  letter-spacing: 0.8px;
+  color: var(--blanco);
+}
+
+.card-mini-logo {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.card-role-chip {
+  background: var(--rojo-suave);
+  color: var(--rojo-brillante);
+  border: 1px solid var(--borde-rojo);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 0.3rem 0.7rem;
+  border-radius: 20px;
+}
+
+/* Dorsal en grande en el centro de la carta */
+.card-dorsal-wrap {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  margin: 1.5rem 0 1rem;
+}
+
+.card-dorsal {
+  font-size: 6.2rem;
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(180deg, #ffffff 0%, var(--rojo-brillante) 50%, var(--rojo-oscuro) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 15px rgba(229, 9, 20, 0.5));
+  letter-spacing: -2px;
+}
+
+.card-bottom {
+  position: relative;
+  z-index: 2;
+  background: rgba(10, 10, 14, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+  text-align: center;
+}
+
+.card-name {
+  font-size: 1.45rem;
+  font-weight: 900;
+  color: var(--blanco);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+.card-desc {
+  color: var(--texto-secundario);
+  font-size: 0.82rem;
+  line-height: 1.4;
+  margin-bottom: 0.7rem;
+}
+
+.card-stats {
+  display: flex;
+  justify-content: space-around;
+  font-size: 0.78rem;
+  color: var(--texto-mute);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 0.6rem;
+}
+
+.card-stats strong {
+  color: var(--blanco);
+}
+
+/* Marca de agua */
+.card-watermark {
+  position: absolute;
+  bottom: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3.8rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.03);
+  letter-spacing: 4px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Botones laterales de navegación */
+.card-nav-btn {
+  background: var(--negro-tarjeta);
+  border: 1px solid var(--borde-tarjeta);
+  color: var(--blanco);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+  z-index: 20;
+}
+
+.card-nav-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+.card-nav-btn:hover {
+  background: var(--rojo-principal);
+  border-color: var(--rojo-brillante);
+  transform: scale(1.1);
+  box-shadow: 0 0 20px var(--rojo-glow);
+}
+
+.card-nav-btn:active {
+  transform: scale(0.95);
+}
+
+/* Paginación con números de los 7 jugadores */
+.cards-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.pagination-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--negro-tarjeta);
+  border: 1px solid var(--borde-tarjeta);
+  color: var(--texto-secundario);
+  font-weight: 800;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+}
+
+.pagination-dot:hover {
+  border-color: var(--rojo-principal);
+  color: var(--blanco);
+  transform: translateY(-2px);
+}
+
+.pagination-dot.active {
+  background: var(--rojo-principal);
+  border-color: var(--rojo-brillante);
+  color: var(--blanco);
+  box-shadow: 0 0 15px var(--rojo-glow);
+  transform: scale(1.12);
+}
+
+.card-hint {
+  text-align: center;
+  color: var(--texto-mute);
+  font-size: 0.85rem;
+  margin-top: 1rem;
+}
+
+/* =========================================
+   CALENDARIO (CELDAS INTERACTIVAS DEL MES)
+   ========================================= */
+
+.calendar-wrapper {
+  background: var(--negro-tarjeta);
+  border: 1px solid var(--borde-tarjeta);
+  border-radius: 20px;
+  padding: 2.2rem;
+  max-width: 860px;
+  margin: 0 auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.calendar-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--rojo-principal), var(--rojo-brillante));
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--borde-tarjeta);
+}
+
+.cal-month-title {
+  color: var(--blanco);
+  font-size: 1.4rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.cal-nav-btn {
+  background: #111118;
+  border: 1px solid var(--borde-tarjeta);
+  color: var(--blanco);
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.cal-nav-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.cal-nav-btn:hover {
+  background: var(--rojo-principal);
+  border-color: var(--rojo-brillante);
+  box-shadow: 0 0 15px var(--rojo-glow);
+  transform: scale(1.05);
+}
+
+/* Días de la semana */
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: var(--texto-secundario);
+  letter-spacing: 0.5px;
+  margin-bottom: 0.8rem;
+}
+
+/* Cuadrícula de celdas */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.cal-day {
+  min-height: 68px;
+  background: #121219;
+  border: 1px solid var(--borde-tarjeta);
+  border-radius: 12px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.cal-day:hover {
+  border-color: var(--rojo-brillante);
+  background: #1c1c28;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.cal-day.cal-day-inactive {
+  opacity: 0.25;
+  cursor: default;
+  background: transparent;
+}
+
+.cal-day.cal-day-inactive:hover {
+  border-color: var(--borde-tarjeta);
+  background: transparent;
+  transform: none;
+}
+
+.day-number {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--texto-principal);
+}
+
+/* Día con Evento (Partido o Entrenamiento) */
+.cal-day.has-event {
+  border-color: rgba(229, 9, 20, 0.7);
+  background: linear-gradient(160deg, #181318 0%, #151015 100%);
+}
+
+.cal-day.has-event::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 7px;
+  height: 7px;
+  background: var(--rojo-brillante);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--rojo-brillante);
+}
+
+.event-tag {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  background: linear-gradient(135deg, var(--rojo-brillante), var(--rojo-oscuro));
+  color: var(--blanco);
+  padding: 0.15rem 0.45rem;
+  border-radius: 6px;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Celda seleccionada */
+.cal-day.selected {
+  border-color: var(--rojo-brillante);
+  background: #231116;
+  box-shadow: 0 0 18px var(--rojo-glow), inset 0 0 10px rgba(229, 9, 20, 0.2);
+}
+
+.cal-day.selected .day-number {
+  color: var(--rojo-brillante);
+}
+
+/* Panel de Detalle del Día */
+.calendar-detail {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--borde-tarjeta);
+}
+
+.detail-card {
+  background: #111118;
+  border-radius: 14px;
+  padding: 1.5rem 1.8rem;
+  border-left: 5px solid var(--rojo-principal);
+  border-top: 1px solid var(--borde-tarjeta);
+  border-right: 1px solid var(--borde-tarjeta);
+  border-bottom: 1px solid var(--borde-tarjeta);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+.detail-card.has-match {
+  border-left-color: var(--rojo-brillante);
+}
+
+.detail-card.no-match {
+  border-left-color: #3f3f46;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.detail-date {
+  color: var(--rojo-brillante);
+  font-weight: 800;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detail-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  background: var(--rojo-suave);
+  color: var(--rojo-brillante);
+  border: 1px solid var(--borde-rojo);
+  padding: 0.25rem 0.8rem;
+  border-radius: 20px;
+}
+
+.detail-title {
+  color: var(--blanco);
+  font-size: 1.3rem;
+  font-weight: 900;
+  margin-bottom: 0.6rem;
+}
+
+.detail-meta {
+  display: flex;
+  gap: 1.5rem;
+  color: var(--texto-secundario);
+  font-size: 0.95rem;
+  margin-bottom: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.detail-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.meta-icon {
+  width: 17px;
+  height: 17px;
+  color: var(--rojo-brillante);
+  flex-shrink: 0;
+}
+
+.detail-desc {
+  color: var(--texto-secundario);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+/* =========================================
+   CONTACTO / FORMULARIO
+   ========================================= */
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
+  align-items: start;
+}
+
+.contact-info .section-title {
+  text-align: left;
+}
+
+.contact-info .section-title::after {
+  margin-left: 0;
+}
+
+.contact-info p {
+  color: var(--texto-secundario);
+  margin-top: 1rem;
+  font-size: 1.05rem;
+}
+
+.contact-list {
+  list-style: none;
+  margin-top: 2rem;
+  display: grid;
+  gap: 1.2rem;
+}
+
+.contact-list li {
+  color: var(--texto-principal);
+  font-size: 1rem;
+  background: var(--negro-tarjeta);
+  padding: 0.95rem 1.3rem;
+  border-radius: 12px;
+  border: 1px solid var(--borde-tarjeta);
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: border-color 0.25s, transform 0.25s;
+}
+
+.contact-list li:hover {
+  border-color: var(--borde-rojo);
+  transform: translateX(4px);
+}
+
+.contact-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--rojo-brillante);
+  flex-shrink: 0;
+}
+
+.contact-email-link {
+  color: var(--blanco);
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.2s ease;
+  word-break: break-all;
+}
+
+.contact-email-link:hover {
+  color: var(--rojo-brillante);
+}
+
+/* Formulario */
+.contact-form {
+  background: var(--negro-tarjeta);
+  padding: 2.4rem;
+  border-radius: 18px;
+  border: 1px solid var(--borde-tarjeta);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.contact-form::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--rojo-brillante), var(--rojo-oscuro));
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+}
+
+.contact-form label {
+  display: block;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--texto-principal);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 1.1rem 0 0.4rem;
+}
+
+.contact-form label:first-of-type {
+  margin-top: 0;
+}
+
+/* Fila de campos de posición */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  margin-top: 0.2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.9rem 1.1rem;
+  background: var(--negro-input);
+  color: var(--blanco);
+  border: 1px solid var(--borde-tarjeta);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: all 0.25s ease;
+}
+
+.contact-form select {
+  font-weight: 600;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff2a38' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.1rem;
+  padding-right: 2.6rem;
+}
+
+.contact-form select option {
+  background: #171720;
+  color: #f3f4f6;
+  padding: 0.5rem;
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--rojo-brillante);
+  background: #171722;
+  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.25), 0 0 12px rgba(229, 9, 20, 0.2);
+}
+
+.contact-form button {
+  margin-top: 1.8rem;
+  width: 100%;
+  padding: 1.1rem;
+}
+
+#formStatus,
+.form-status-msg {
+  margin-top: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+  font-size: 0.95rem;
+  border-radius: 12px;
+  padding: 1rem 1.4rem;
+  transition: all 0.3s ease;
+  line-height: 1.5;
+}
+
+.status-loading {
+  background: rgba(229, 9, 20, 0.15);
+  color: var(--rojo-brillante);
+  border: 1px solid var(--borde-rojo);
+  box-shadow: 0 0 15px rgba(229, 9, 20, 0.2);
+}
+
+.status-success {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.5);
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.25);
+}
+
+.status-warning {
+  background: rgba(234, 179, 8, 0.12);
+  color: #fde047;
+  border: 1px solid rgba(234, 179, 8, 0.4);
+  box-shadow: 0 0 20px rgba(234, 179, 8, 0.2);
+}
+
+.status-error {
+  background: rgba(229, 9, 20, 0.18);
+  color: #ff6b6b;
+  border: 1px solid var(--rojo-brillante);
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.3);
+}
+
+.status-action-link {
+  display: inline-block;
+  margin-top: 0.6rem;
+  padding: 0.4rem 1rem;
+  background: var(--rojo-principal);
+  color: var(--blanco) !important;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.status-action-link:hover {
+  background: var(--rojo-brillante);
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+
+.footer {
+  background: #060608;
+  color: var(--texto-secundario);
+  text-align: center;
+  padding: 2.2rem 1rem;
+  border-top: 1px solid var(--borde-tarjeta);
+  font-size: 0.9rem;
+}
+
+/* =========================================
+   RESPONSIVE / MÓVIL
+   ========================================= */
+
+@media (max-width: 820px) {
+  .menu-btn {
+    display: flex;
+  }
+
+  /* Menú desplegable móvil */
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: rgba(10, 10, 13, 0.98);
+    backdrop-filter: blur(16px);
+    border-bottom: 2px solid var(--rojo-principal);
+    flex-direction: column;
+    padding: 1.5rem 0;
+    text-align: center;
+    gap: 1.2rem;
+    display: none;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .contact-info .section-title {
+    text-align: center;
+  }
+
+  .contact-info .section-title::after {
+    margin: 0.8rem auto 0;
+  }
+
+  .hero {
+    min-height: 65vh;
+    padding: 3rem 0;
+  }
+
+  /* Plantilla responsive */
+  .cards-showcase {
+    gap: 0.5rem;
+  }
+
+  .cards-deck {
+    width: 270px;
+    height: 440px;
+  }
+
+  .player-card-deck.card-left {
+    transform: translateX(-70px) scale(0.8) rotateY(8deg);
+    opacity: 0.3;
+  }
+
+  .player-card-deck.card-right {
+    transform: translateX(70px) scale(0.8) rotateY(-8deg);
+    opacity: 0.3;
+  }
+
+  .card-nav-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* Calendario responsive */
+  .calendar-wrapper {
+    padding: 1.2rem 0.8rem;
+  }
+
+  .cal-day {
+    min-height: 54px;
+    padding: 3px;
+    border-radius: 8px;
+  }
+
+  .day-number {
+    font-size: 0.85rem;
+  }
+
+  .event-tag {
+    font-size: 0.58rem;
+    padding: 0.1rem 0.2rem;
+  }
+
+  .detail-card {
+    padding: 1.2rem;
+  }
+}

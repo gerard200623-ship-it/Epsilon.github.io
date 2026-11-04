@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Épsilon Tarragona | Fútbol 7</title>
+
+  <!-- Favicon con el escudo oficial (sin fondo) -->
+  <link rel="icon" type="image/png" href="img/logo.png">
+
+  <!-- Google Fonts: Montserrat para estilo deportivo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&display=swap"
+    rel="stylesheet">
+
+  <!-- Hoja de estilos principal -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ================= HEADER / MENÚ ================= -->
+  <header class="header">
+    <nav class="nav container">
+      <!-- Logo del equipo con escudo oficial -->
+      <a href="#inicio" class="logo">
+        <img src="img/logo.png" alt="Escudo Épsilon Tarragona" class="logo-img">
+        <span class="logo-text">ÉPSILON <span>FC</span></span>
+      </a>
+
+      <!-- Botón menú hamburguesa profesional para móvil -->
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menú">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+
+      <!-- Menú de navegación -->
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#nosotros">Sobre nosotros</a></li>
+        <li><a href="#plantilla">Plantilla</a></li>
+        <li><a href="#calendario">Calendario</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ================= INICIO / HERO ================= -->
+  <section id="inicio" class="hero">
+    <div class="container hero-content">
+      <div class="hero-badge-wrap">
+        <img src="img/logo.png" alt="Escudo Épsilon Tarragona" class="hero-logo-badge">
+      </div>
+      <span class="hero-tag">Fútbol 7 Amateur · Tarragona</span>
+      <h1>Bienvenidos al <span>Épsilon FC</span></h1>
+      <p>Pasión, trabajo en equipo y ganas de competir en el campo.</p>
+      <div class="hero-actions">
+        <a href="#contacto" class="btn btn-primary">Únete o contáctanos</a>
+        <a href="#plantilla" class="btn btn-outline">Ver Plantilla</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SOBRE NOSOTROS ================= -->
+  <section id="nosotros" class="section">
+    <div class="container">
+      <h2 class="section-title">Sobre nosotros</h2>
+      <p class="section-sub">Conoce la identidad, los valores y el proyecto deportivo del Épsilon FC.</p>
+
+      <div class="about-grid">
+        <!-- Cómo somos / Identidad -->
+        <div class="about-card">
+          <span class="about-badge">Identidad</span>
+          <h3>Quiénes somos</h3>
+          <p>
+            Somos un colectivo de amigos de Tarragona unidos por una pasión compartida por el fútbol 7. 
+            Más que un grupo aficionado, nos consideramos un vestuario comprometido, donde priman la lealtad, 
+            el compañerismo y la seriedad en cada convocatoria.
+          </p>
+          <p class="about-extra">
+            En el campo nos caracterizamos por la intensidad, el esfuerzo solidario en cada balón dividido y 
+            la competitividad; fuera de él, por el respeto, la amistad y las ganas continuas de hacer crecer 
+            este proyecto conjunto.
+          </p>
+        </div>
+
+        <!-- Nuestra idea / Filosofía -->
+        <div class="about-card">
+          <span class="about-badge">Filosofía</span>
+          <h3>Nuestra idea de juego</h3>
+          <p>
+            Apostamos por un fútbol 7 ordenado, dinámico y con ambición constante. Creemos firmemente en el 
+            entrenamiento como herramienta para progresar: mecanizar transiciones rápidas, salida limpia desde atrás 
+            y una presión alta organizada.
+          </p>
+          <p class="about-extra">
+            Buscamos que el talento individual de cada jugador sume al servicio del colectivo, cultivando una 
+            mentalidad ganadora en cada choque sin renunciar a disfrutar del juego y a mantener un ambiente ejemplar.
+          </p>
+        </div>
+
+        <!-- Fase de preparación / Próxima competición -->
+        <div class="about-card about-card-featured">
+          <span class="about-badge badge-destacado">Temporada 2026/27</span>
+          <h3>Próxima competición oficial</h3>
+          <p>
+            Actualmente el equipo se encuentra en <strong>fase intensiva de pretemporada y rodaje</strong>. 
+            Hasta la apertura de la próxima competición oficial de liga, <strong>no disputaremos partidos oficiales federados</strong>.
+          </p>
+          <p class="about-extra">
+            Dedicamos este periodo a entrenamientos semanales y partidos amistosos contra equipos de la zona para consolidar 
+            el esquema táctico, ajustar la química del grupo y llegar en nuestro mejor momento físico y competitivo al arranque del torneo.
+          </p>
+        </div>
+
+        <!-- Dónde jugamos -->
+        <div class="about-card">
+          <span class="about-badge">Instalaciones</span>
+          <h3>Dónde jugamos y entrenamos</h3>
+          <p>
+            Desarrollamos nuestra actividad en campos de césped artificial en Tarragona, Altafulla y alrededores, 
+            donde programamos nuestras sesiones semanales y encuentros amistosos.
+          </p>
+          <p class="about-extra">
+            Estamos siempre abiertos a concertar amistosos frente a otros equipos de la provincia que busquen rivales serios, 
+            competitivos y con juego limpio para medirse sobre el terreno de juego.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PLANTILLA (SHOWCASE DE CARTAS INTERACTIVAS) ================= -->
+  <section id="plantilla" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">Plantilla</h2>
+      <p class="section-sub">Haz clic en la carta o en las flechas para ver los jugadores.</p>
+
+      <!-- Carrusel interactivo estilo cartas deportivas -->
+      <div class="cards-showcase">
+        <button class="card-nav-btn prev-btn" id="prevPlayer" aria-label="Jugador anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+
+        <div class="cards-deck" id="cardsDeck">
+          <!-- Renderizado dinámicamente con animación 3D de cambio -->
+        </div>
+
+        <button class="card-nav-btn next-btn" id="nextPlayer" aria-label="Siguiente jugador">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Paginación con puntos interactivos -->
+      <div class="cards-pagination" id="cardsPagination"></div>
+
+      <!-- Ayuda interactiva -->
+      <p class="card-hint">Haz clic sobre la carta para pasar a la siguiente</p>
+    </div>
+  </section>
+
+  <!-- ================= CALENDARIO (CUADRÍCULA DE CELDAS DEL MES) ================= -->
+  <section id="calendario" class="section">
+    <div class="container">
+      <h2 class="section-title">Calendario</h2>
+      <p class="section-sub">Selecciona cualquier día para ver los partidos y entrenamientos.</p>
+
+      <div class="calendar-wrapper">
+        <!-- Cabecera del mes -->
+        <div class="calendar-header">
+          <button class="cal-nav-btn" id="calPrevMonth" aria-label="Mes anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <h3 class="cal-month-title" id="calMonthTitle">Noviembre 2026</h3>
+          <button class="cal-nav-btn" id="calNextMonth" aria-label="Mes siguiente">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Días de la semana -->
+        <div class="calendar-weekdays">
+          <span>Lun</span>
+          <span>Mar</span>
+          <span>Mié</span>
+          <span>Jue</span>
+          <span>Vie</span>
+          <span>Sáb</span>
+          <span>Dom</span>
+        </div>
+
+        <!-- Cuadrícula con las celdas del mes -->
+        <div class="calendar-grid" id="calendarDays"></div>
+
+        <!-- Detalle del día seleccionado -->
+        <div class="calendar-detail" id="calendarDetail"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACTO / FORMULARIO ================= -->
+  <section id="contacto" class="section section-alt">
+    <div class="container contact-grid">
+
+      <!-- Información de contacto -->
+      <div class="contact-info">
+        <h2 class="section-title">Contacto</h2>
+        <p>¿Quieres jugar con nosotros, retarnos a un amistoso o pedir información?</p>
+
+        <ul class="contact-list">
+          <li>
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+            </svg>
+            <a href="mailto:infoepsilontgn@gmail.com" class="contact-email-link">infoepsilontgn@gmail.com</a>
+          </li>
+          <li>
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span>Tarragona y alrededores</span>
+          </li>
+          <li>
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="m4.93 4.93 4.24 4.24"></path>
+              <path d="m14.83 9.17 4.24-4.24"></path>
+              <path d="m14.83 14.83 4.24 4.24"></path>
+              <path d="m9.17 14.83-4.24 4.24"></path>
+              <circle cx="12" cy="12" r="4"></circle>
+            </svg>
+            <span>Fútbol 7 amateur</span>
+          </li>
+          <li>
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+              <line x1="16" x2="16" y1="2" y2="6"></line>
+              <line x1="8" x2="8" y1="2" y2="6"></line>
+              <line x1="3" x2="21" y1="10" y2="10"></line>
+            </svg>
+            <span>Entrenamientos y partidos semanales</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Formulario de contacto con FormSubmit -->
+      <form class="contact-form" id="contactForm" action="https://formsubmit.co/infoepsilontgn@gmail.com" method="POST">
+        <!-- Campo honeypot anti-spam para bloquear bots de forma silenciosa -->
+        <input type="text" name="_honey" style="display:none;" tabindex="-1" autocomplete="off">
+
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre y apellidos" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required>
+
+        <!-- Selección de posiciones en el campo -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="posicion_principal">Posición principal</label>
+            <select id="posicion_principal" name="posicion_principal" required>
+              <option value="" disabled selected>Elige posición</option>
+              <option value="Portero">Portero</option>
+              <option value="Defensa">Defensa</option>
+              <option value="Centrocampista">Centrocampista</option>
+              <option value="Delantero">Delantero</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="posicion_secundaria">Posición secundaria</label>
+            <select id="posicion_secundaria" name="posicion_secundaria">
+              <option value="Ninguna">Ninguna / Solo una</option>
+              <option value="Portero">Portero</option>
+              <option value="Defensa">Defensa</option>
+              <option value="Centrocampista">Centrocampista</option>
+              <option value="Delantero">Delantero</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="asunto">Asunto</label>
+        <input type="text" id="asunto" name="asunto" placeholder="Ej: Quiero unirme al equipo / Partido amistoso"
+          required>
+
+        <label for="mensaje">Mensaje</label>
+        <textarea id="mensaje" name="mensaje" rows="4"
+          placeholder="Cuéntanos tu experiencia o lo que quieras compartir..." required></textarea>
+
+        <button type="submit" class="btn" id="submitBtn">Enviar mensaje</button>
+
+        <!-- Contenedor accesible para mensajes de estado -->
+        <p id="formStatus" class="form-status-msg" aria-live="polite" style="display:none;"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <p>© 2026 Épsilon Tarragona · Fútbol 7 amateur</p>
+  </footer>
+
+  <!-- Script principal de la web -->
+  <script src="main.js"></script>
+</body>
+
+</html>
