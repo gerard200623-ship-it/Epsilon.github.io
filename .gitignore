@@ -11,3 +11,5 @@ $RECYCLE.BIN/
 *.sublime-project
 *.sublime-workspace
 *.log
+
+*.zip
