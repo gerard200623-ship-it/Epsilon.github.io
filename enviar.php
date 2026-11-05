@@ -22,6 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Limpieza y saneamiento de entradas
     $nombre              = htmlspecialchars(trim($_POST["nombre"] ?? ""));
     $email               = filter_var(trim($_POST["email"] ?? ""), FILTER_SANITIZE_EMAIL);
+    $telefono            = htmlspecialchars(trim($_POST["telefono"] ?? "No indicado"));
     $asunto              = htmlspecialchars(trim($_POST["asunto"] ?? ""));
     $posicion_principal  = htmlspecialchars(trim($_POST["posicion_principal"] ?? "No especificada"));
     $posicion_secundaria = htmlspecialchars(trim($_POST["posicion_secundaria"] ?? "Ninguna"));
@@ -57,6 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $cuerpo = "Has recibido un nuevo mensaje desde el formulario web de Épsilon Tarragona:\n\n";
     $cuerpo .= "Nombre: " . $nombre . "\n";
     $cuerpo .= "Email de contacto: " . $email . "\n";
+    $cuerpo .= "Teléfono: " . $telefono . "\n";
     $cuerpo .= "Asunto: " . $asunto . "\n";
     $cuerpo .= "Posición principal: " . $posicion_principal . "\n";
     $cuerpo .= "Posición secundaria: " . $posicion_secundaria . "\n\n";

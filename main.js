@@ -459,6 +459,7 @@ if (contactForm && formStatus && submitBtn) {
     // 1. Obtener los campos del formulario
     const nombreInput = document.getElementById("nombre");
     const emailInput = document.getElementById("email");
+    const telefonoInput = document.getElementById("telefono");
     const posPrincipalInput = document.getElementById("posicion_principal");
     const posSecundariaInput = document.getElementById("posicion_secundaria");
     const asuntoInput = document.getElementById("asunto");
@@ -466,6 +467,7 @@ if (contactForm && formStatus && submitBtn) {
 
     const nombre = nombreInput.value.trim();
     const email = emailInput.value.trim();
+    const telefono = telefonoInput ? telefonoInput.value.trim() : "";
     const posPrincipal = posPrincipalInput.value;
     const posSecundaria = posSecundariaInput.value || "Ninguna";
     const asunto = asuntoInput.value.trim();
@@ -510,6 +512,7 @@ if (contactForm && formStatus && submitBtn) {
       `Me pongo en contacto a través de la web oficial:\n\n` +
       `• Nombre: ${nombre}\n` +
       `• Email de contacto: ${email}\n` +
+      `• Teléfono: ${telefono || "No indicado"}\n` +
       `• Posición principal: ${posPrincipal}\n` +
       `• Posición secundaria: ${posSecundaria}\n\n` +
       `• Asunto: ${asunto}\n\n` +
@@ -536,6 +539,7 @@ if (contactForm && formStatus && submitBtn) {
           bodyPayload = {
             Nombre: nombre,
             Email: email,
+            Teléfono: telefono || "No indicado",
             "Posición Principal": posPrincipal,
             "Posición Secundaria": posSecundaria,
             Asunto: asunto,
@@ -549,6 +553,7 @@ if (contactForm && formStatus && submitBtn) {
             subject: `Nuevo contacto web Épsilon FC: ${asunto}`,
             Nombre: nombre,
             Email: email,
+            Teléfono: telefono || "No indicado",
             "Posición Principal": posPrincipal,
             "Posición Secundaria": posSecundaria,
             Asunto: asunto,
