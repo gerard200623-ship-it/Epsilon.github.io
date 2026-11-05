@@ -2,6 +2,10 @@
 
 Sitio web oficial del club de fútbol 7 amateur **Épsilon Tarragona** (Épsilon FC).
 
+🌐 **Web en línea:** [https://epsilontgn.vercel.app](https://epsilontgn.vercel.app)
+
+---
+
 ## Características principales
 
 - **Identidad visual moderna**: Paleta sobria y deportiva en tonos rojo (`#e50914`, `#ff2a38`), negro carbón (`#0a0a0d`, `#121216`) y tipografía *Montserrat*.
@@ -16,11 +20,11 @@ Sitio web oficial del club de fútbol 7 amateur **Épsilon Tarragona** (Épsilon
   - Ash (Delantero)
   - Delantero (Delantero)
 - **Calendario dinámico de competición**: Rejilla mensual completa con selector de mes, días de la semana y estados de partidos/entrenamientos.
-- **Formulario de captación con autoenvío silencioso**:
-  - Campos: Nombre, Email, Posición Principal (desplegable), Posición Secundaria (desplegable), Asunto y Mensaje.
+- **Formulario de captación y contacto**:
+  - Campos: Nombre, Email, Teléfono, Posición Principal (desplegable), Posición Secundaria (desplegable), Asunto y Mensaje.
   - Validación completa en cliente.
-  - Envío automático en segundo plano mediante **Web3Forms API** hacia `infoepsilontgn@gmail.com`.
-  - Sin aperturas de ventanas ni redirecciones externas.
+  - Autoenvío en segundo plano mediante **Web3Forms API** hacia `infoepsilontgn@gmail.com`.
+  - Sin aperturas de ventanas externas ni redirecciones.
 
 ---
 
@@ -39,21 +43,8 @@ Sitio web oficial del club de fútbol 7 amateur **Épsilon Tarragona** (Épsilon
 
 ---
 
-## Formulario de Contacto
+## Despliegue y Hosting
 
-El formulario envía automáticamente los mensajes en segundo plano hacia `infoepsilontgn@gmail.com` a través de Web3Forms:
-* Al pulsar **"Enviar mensaje"**, el botón se desactiva temporalmente y se procesa la solicitud mediante AJAX.
-* Tras completarse con éxito, se muestra el aviso de confirmación en verde y se reinicia el formulario.
-* No abre ventanas emergentes ni aplicaciones externas de correo.
-
----
-
-## Despliegue en GitHub Pages
-
-Este proyecto es 100% estático y compatible con GitHub Pages:
-
-1. Repositorio en GitHub: `https://github.com/gerard200623-ship-it/epsilon.github.io`
-2. Ve a **Settings** > **Pages** dentro de tu repositorio (`https://github.com/gerard200623-ship-it/epsilon.github.io/settings/pages`).
-3. En **Source**, selecciona la rama `main` y la carpeta `/ (root)`.
-4. Pulsa **Save**. En un par de minutos tu web estará disponible en línea en:  
-   `https://gerard200623-ship-it.github.io/epsilon.github.io/`
+La web está alojada y desplegada globalmente a través de **Vercel** con sincronización continua desde GitHub:
+* **URL de producción:** [https://epsilontgn.vercel.app](https://epsilontgn.vercel.app)
+* Cada cambio o commit subido a la rama `main` de GitHub se despliega automáticamente en cuestión de segundos.
