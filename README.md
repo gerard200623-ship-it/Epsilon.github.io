@@ -16,12 +16,11 @@ Sitio web oficial del club de fútbol 7 amateur **Épsilon Tarragona** (Épsilon
   - Ash (Delantero)
   - Delantero (Delantero)
 - **Calendario dinámico de competición**: Rejilla mensual completa con selector de mes, días de la semana y estados de partidos/entrenamientos.
-- **Formulario de captación y contacto multicanal**:
+- **Formulario de captación y contacto directo**:
   - Campos: Nombre, Email, Posición Principal (desplegable), Posición Secundaria (desplegable), Asunto y Mensaje.
   - Validación completa en cliente.
-  - Envío web mediante **ShipMyForm** hacia `infoepsilontgn@gmail.com`.
-  - Opción de apertura directa en Gmail / cliente de correo con los datos precompletados.
-  - Protección antispam mediante campo honeypot (`_gotcha`) y sanitización segura.
+  - Generación de borrador directo hacia `infoepsilontgn@gmail.com` (Gmail Web y clientes nativos).
+  - Cero dependencias de proxies o servidores externos que puedan caerse.
 
 ---
 
@@ -40,17 +39,13 @@ Sitio web oficial del club de fútbol 7 amateur **Épsilon Tarragona** (Épsilon
 
 ---
 
-## Formulario de Contacto (ShipMyForm + Correo Directo)
+## Envío de Mensajes de Contacto
 
-Para garantizar que los mensajes lleguen siempre a `infoepsilontgn@gmail.com` sin caídas:
-
-1. **Envío desde la web (ShipMyForm)**:
-   - Al enviar el formulario por primera vez, el servicio remite un correo de confirmación a `infoepsilontgn@gmail.com`.
-   - Revisa la bandeja de entrada y la carpeta de **Spam / Correo no deseado** y pulsa en el enlace de activación.
-   - A partir de ese momento, todos los mensajes llegarán directamente a tu correo.
-
-2. **Opción directa (Gmail / Correo)**:
-   - Los usuarios también disponen de un botón secundario que abre automáticamente su aplicación de correo (Gmail, Outlook, etc.) con los datos del formulario ya redactados y dirigidos a `infoepsilontgn@gmail.com`.
+Al rellenar el formulario y hacer clic en **"Enviar mensaje"**:
+1. Se valida que todos los datos sean correctos.
+2. Se prepara de inmediato un correo dirigido a `infoepsilontgn@gmail.com` con el asunto, nombre, posiciones y mensaje estructurados.
+3. Se abre automáticamente la ventana de redacción (compatible con Gmail Web en navegador y clientes de escritorio o móviles como Outlook o Apple Mail).
+4. El mensaje se envía de forma directa y garantizada sin intermediarios ni demoras.
 
 ---
 

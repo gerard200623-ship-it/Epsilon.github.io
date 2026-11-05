@@ -380,24 +380,14 @@ if (calNextMonthBtn) {
 renderCalendar();
 
 // =========================================
-// FORMULARIO DE CONTACTO (SISTEMA MULTICANAL: ShipMyForm + Acceso Directo Gmail)
+// FORMULARIO DE CONTACTO DIRECTO HACIA infoepsilontgn@gmail.com
 // =========================================
 
 const contactForm = document.getElementById("contactForm");
 const formStatus = document.getElementById("formStatus");
 const submitBtn = document.getElementById("submitBtn");
-const redirectField = document.getElementById("_redirectField");
-const btnGmailDirect = document.getElementById("btnGmailDirect");
 
 if (contactForm && formStatus && submitBtn) {
-  /**
-   * Configura la URL de redirección tras el envío exitoso.
-   */
-  if (redirectField) {
-    const urlBase = window.location.href.split("#")[0];
-    redirectField.value = `${urlBase}#enviado`;
-  }
-
   /**
    * Muestra mensajes de estado de forma segura evitando innerHTML con texto no confiable.
    * @param {"loading"|"success"|"warning"|"error"} tipo - Clase de estilo visual.
@@ -407,7 +397,7 @@ if (contactForm && formStatus && submitBtn) {
   function mostrarEstado(tipo, titulo, detalle = "") {
     formStatus.style.display = "block";
     formStatus.className = `form-status-msg status-${tipo}`;
-    formStatus.replaceChildren(); // Limpia nodos previos de manera segura
+    formStatus.replaceChildren();
 
     const strongEl = document.createElement("strong");
     strongEl.textContent = titulo;
@@ -421,43 +411,47 @@ if (contactForm && formStatus && submitBtn) {
     }
   }
 
-  // Comprobar al cargar la página si volvemos de un envío exitoso
-  if (window.location.hash === "#enviado") {
-    mostrarEstado(
-      "success",
-      "Mensaje enviado con éxito.",
-      "El equipo del Épsilon Tarragona revisará tu mensaje en infoepsilontgn@gmail.com. Te responderemos pronto."
-    );
-    if (window.history && window.history.replaceState) {
-      window.history.replaceState(null, "", window.location.pathname);
-    }
+  /**
+   * Presenta la confirmación con los botones de envío directo para Gmail y aplicaciones de correo.
+   * @param {string} urlGmail - Enlace directo para redactar en Gmail Web.
+   * @param {string} urlMailto - Enlace estándar para clientes nativos (Outlook, Mail, etc.).
+   */
+  function mostrarOpcionesEnvio(urlGmail, urlMailto) {
+    formStatus.style.display = "block";
+    formStatus.className = "form-status-msg status-success";
+    formStatus.replaceChildren();
+
+    const strongEl = document.createElement("strong");
+    strongEl.textContent = "Borrador generado para infoepsilontgn@gmail.com";
+    formStatus.appendChild(strongEl);
+
+    formStatus.appendChild(document.createElement("br"));
+
+    const smallEl = document.createElement("small");
+    smallEl.textContent = "Se ha preparado el mensaje con todos tus datos. Pulsa en el botón según cómo prefieras enviarlo:";
+    formStatus.appendChild(smallEl);
+
+    const actionsGroup = document.createElement("div");
+    actionsGroup.className = "status-actions-group";
+
+    const btnGmail = document.createElement("a");
+    btnGmail.href = urlGmail;
+    btnGmail.target = "_blank";
+    btnGmail.rel = "noopener noreferrer";
+    btnGmail.className = "status-action-btn";
+    btnGmail.textContent = "Abrir en Gmail Web";
+    actionsGroup.appendChild(btnGmail);
+
+    const btnMailto = document.createElement("a");
+    btnMailto.href = urlMailto;
+    btnMailto.className = "status-action-btn secondary";
+    btnMailto.textContent = "Abrir en App de Correo";
+    actionsGroup.appendChild(btnMailto);
+
+    formStatus.appendChild(actionsGroup);
   }
 
-  // Botón directo para redactar desde el cliente de correo del usuario (Gmail / Outlook / Apple Mail)
-  if (btnGmailDirect) {
-    btnGmailDirect.addEventListener("click", () => {
-      const nombre = document.getElementById("nombre").value.trim() || "Contacto Web";
-      const email = document.getElementById("email").value.trim() || "No especificado";
-      const posPrincipal = document.getElementById("posicion_principal").value || "No especificada";
-      const posSecundaria = document.getElementById("posicion_secundaria").value || "Ninguna";
-      const asunto = document.getElementById("asunto").value.trim() || "Contacto Épsilon Tarragona";
-      const mensaje = document.getElementById("mensaje").value.trim() || "";
-
-      const asuntoFinal = encodeURIComponent(`Épsilon FC: ${asunto}`);
-      const cuerpoFinal = encodeURIComponent(
-        `Nombre: ${nombre}\n` +
-        `Email de contacto: ${email}\n` +
-        `Posición principal: ${posPrincipal}\n` +
-        `Posición secundaria: ${posSecundaria}\n\n` +
-        `Mensaje:\n${mensaje}\n`
-      );
-
-      // Abre el cliente de correo por defecto del usuario
-      window.location.href = `mailto:infoepsilontgn@gmail.com?subject=${asuntoFinal}&body=${cuerpoFinal}`;
-    });
-  }
-
-  contactForm.addEventListener("submit", async (e) => {
+  contactForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
     // 1. Obtener los campos del formulario
@@ -507,84 +501,33 @@ if (contactForm && formStatus && submitBtn) {
       return;
     }
 
-    // 3. Desactivar botón mientras se procesa para evitar solicitudes repetidas
-    submitBtn.disabled = true;
-    const textoOriginalBtn = submitBtn.textContent;
-    submitBtn.textContent = "Enviando mensaje...";
-    mostrarEstado("loading", "Procesando el envío de tu mensaje...");
+    // 3. Generar cuerpo y enlaces directos seguros hacia Gmail y clientes estándar
+    const asuntoFinal = encodeURIComponent(`Contacto Épsilon FC: ${asunto}`);
+    const cuerpoTexto =
+      `Hola equipo Épsilon Tarragona,\n\n` +
+      `Me pongo en contacto a través de la web oficial:\n\n` +
+      `• Nombre: ${nombre}\n` +
+      `• Email de contacto: ${email}\n` +
+      `• Posición principal: ${posPrincipal}\n` +
+      `• Posición secundaria: ${posSecundaria}\n\n` +
+      `• Asunto: ${asunto}\n\n` +
+      `Mensaje:\n${mensaje}\n\n` +
+      `---\nÉpsilon Tarragona - Fútbol 7 amateur`;
 
-    // 4. Si el usuario abre la web de forma local (file:///) donde los navegadores
-    // bloquean fetch por política CORS de origen nulo, enviamos mediante envío nativo HTML
-    if (window.location.protocol === "file:") {
-      contactForm.submit();
-      return;
+    const cuerpoFinal = encodeURIComponent(cuerpoTexto);
+
+    const urlGmail = `https://mail.google.com/mail/?view=cm&fs=1&to=infoepsilontgn@gmail.com&su=${asuntoFinal}&body=${cuerpoFinal}`;
+    const urlMailto = `mailto:infoepsilontgn@gmail.com?subject=${asuntoFinal}&body=${cuerpoFinal}`;
+
+    // 4. Intentar abrir automáticamente Gmail Web en una nueva pestaña
+    const nuevaPestana = window.open(urlGmail, "_blank");
+
+    // Si el navegador bloqueó la ventana emergente, abrimos mediante mailto
+    if (!nuevaPestana || nuevaPestana.closed || typeof nuevaPestana.closed === "undefined") {
+      window.location.href = urlMailto;
     }
 
-    try {
-      // 5. Envío asíncrono con FormData
-      const formData = new FormData(contactForm);
-
-      let respuesta = null;
-      try {
-        respuesta = await fetch("https://shipmyform.com/to/infoepsilontgn@gmail.com", {
-          method: "POST",
-          headers: {
-            "Accept": "application/json"
-          },
-          body: formData
-        });
-      } catch (errRed) {
-        // En caso de bloqueo por extensiones, adblockers o restricciones de red,
-        // recurrimos al envío nativo del formulario para asegurar la entrega del mensaje
-        console.warn("Fallo en fetch asíncrono, enviando de forma nativa:", errRed);
-        contactForm.submit();
-        return;
-      }
-
-      // 6. Lectura segura del cuerpo de respuesta
-      let data = null;
-      try {
-        data = await respuesta.json();
-      } catch (errJson) {
-        console.warn("La respuesta no contiene JSON válido:", errJson);
-      }
-
-      const mensajeServidor = (data && (data.message || data.error)) ? String(data.message || data.error) : "";
-      const mensajeNormalizado = mensajeServidor.toLowerCase();
-
-      // Detección de activación pendiente en Gmail
-      const requiereActivacion = mensajeNormalizado.includes("activate") || mensajeNormalizado.includes("confirm");
-
-      if (requiereActivacion) {
-        mostrarEstado(
-          "warning",
-          "Activación pendiente en Gmail:",
-          "Se ha enviado un correo de verificación a infoepsilontgn@gmail.com. Abre Gmail (revisa la bandeja de entrada y la carpeta Spam) y pulsa en el enlace de activación. Tus datos se conservan en el formulario."
-        );
-        return;
-      }
-
-      // Verificación de éxito (HTTP 200..299 o success = true)
-      if (respuesta.ok) {
-        mostrarEstado(
-          "success",
-          "Mensaje enviado con éxito.",
-          "El equipo del Épsilon Tarragona revisará tu mensaje en infoepsilontgn@gmail.com. Te responderemos pronto."
-        );
-        contactForm.reset();
-        return;
-      }
-
-      // Si el servicio no pudo procesar la solicitud AJAX, recurrimos a envío estándar
-      console.warn("Respuesta no exitosa en AJAX, reintentando de forma nativa:", mensajeServidor);
-      contactForm.submit();
-
-    } catch (errorGeneral) {
-      console.error("Error inesperado en el formulario:", errorGeneral);
-      contactForm.submit();
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = textoOriginalBtn;
-    }
+    // 5. Mostrar siempre los botones de confirmación y acceso rápido en la página
+    mostrarOpcionesEnvio(urlGmail, urlMailto);
   });
 }

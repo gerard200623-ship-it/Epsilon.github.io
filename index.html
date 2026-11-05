@@ -264,13 +264,8 @@
         </ul>
       </div>
 
-      <!-- Formulario de contacto hacia ShipMyForm -->
-      <form class="contact-form" id="contactForm" action="https://shipmyform.com/to/infoepsilontgn@gmail.com" method="POST">
-        <!-- Parámetros de configuración -->
-        <input type="hidden" name="_redirect" id="_redirectField" value="">
-        <!-- Campo honeypot anti-spam para bloquear bots de forma silenciosa -->
-        <input type="text" name="_gotcha" style="display:none;" tabindex="-1" autocomplete="off">
-
+      <!-- Formulario de contacto directo hacia infoepsilontgn@gmail.com -->
+      <form class="contact-form" id="contactForm" novalidate>
         <label for="nombre">Nombre</label>
         <input type="text" id="nombre" name="nombre" placeholder="Tu nombre y apellidos" required>
 
@@ -311,14 +306,6 @@
           placeholder="Cuéntanos tu experiencia o lo que quieras compartir..." required></textarea>
 
         <button type="submit" class="btn" id="submitBtn">Enviar mensaje</button>
-
-        <!-- Opción de envío directo por correo -->
-        <div class="direct-email-container">
-          <span>o si lo prefieres</span>
-          <button type="button" class="btn-secondary-link" id="btnGmailDirect">
-            Abrir borrador directo en Gmail / Correo
-          </button>
-        </div>
 
         <!-- Contenedor accesible para mensajes de estado -->
         <p id="formStatus" class="form-status-msg" aria-live="polite" style="display:none;"></p>

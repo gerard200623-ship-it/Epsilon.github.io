@@ -1289,44 +1289,42 @@ body {
   padding: 1.1rem;
 }
 
-/* Opción de correo directo */
-.direct-email-container {
-  margin-top: 1.2rem;
-  text-align: center;
+/* Botones de acción en avisos de estado */
+.status-actions-group {
+  margin-top: 0.9rem;
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  align-items: center;
+  gap: 0.6rem;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.direct-email-container span {
-  font-size: 0.85rem;
-  color: var(--texto-secundario);
-  text-transform: lowercase;
-  letter-spacing: 0.5px;
-}
-
-.btn-secondary-link {
-  background: transparent;
-  color: var(--rojo-brillante);
-  border: 1px dashed var(--borde-rojo);
-  padding: 0.65rem 1.2rem;
-  border-radius: 8px;
-  font-family: inherit;
-  font-size: 0.88rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  text-decoration: none;
+.status-action-btn {
   display: inline-block;
-  width: auto;
+  padding: 0.55rem 1.1rem;
+  background: var(--rojo-principal);
+  color: var(--blanco) !important;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.88rem;
+  transition: all 0.2s ease;
+  border: 1px solid var(--borde-rojo);
 }
 
-.btn-secondary-link:hover {
-  background: rgba(229, 9, 20, 0.12);
-  border-color: var(--rojo-brillante);
-  color: var(--blanco);
-  transform: translateY(-1px);
+.status-action-btn:hover {
+  background: var(--rojo-brillante);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(229, 9, 20, 0.4);
+}
+
+.status-action-btn.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.status-action-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 #formStatus,
