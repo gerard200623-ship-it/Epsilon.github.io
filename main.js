@@ -380,14 +380,23 @@ if (calNextMonthBtn) {
 renderCalendar();
 
 // =========================================
-// FORMULARIO DE CONTACTO (SISTEMA ÚNICO: FormSubmit hacia infoepsilontgn@gmail.com)
+// FORMULARIO DE CONTACTO (SISTEMA INTEGRAL: FormSubmit hacia infoepsilontgn@gmail.com)
 // =========================================
 
 const contactForm = document.getElementById("contactForm");
 const formStatus = document.getElementById("formStatus");
 const submitBtn = document.getElementById("submitBtn");
+const nextField = document.getElementById("_nextField");
 
 if (contactForm && formStatus && submitBtn) {
+  /**
+   * Configura la URL de retorno automático para cuando se complete el envío.
+   */
+  if (nextField) {
+    const urlBase = window.location.href.split("#")[0];
+    nextField.value = `${urlBase}#enviado`;
+  }
+
   /**
    * Muestra mensajes de estado de forma segura evitando innerHTML con texto no confiable.
    * @param {"loading"|"success"|"warning"|"error"} tipo - Clase de estilo visual.
@@ -408,6 +417,18 @@ if (contactForm && formStatus && submitBtn) {
       const smallEl = document.createElement("small");
       smallEl.textContent = detalle;
       formStatus.appendChild(smallEl);
+    }
+  }
+
+  // Comprobar al cargar la página si volvemos de un envío exitoso mediante redirección
+  if (window.location.hash === "#enviado") {
+    mostrarEstado(
+      "success",
+      "Mensaje enviado correctamente.",
+      "El equipo del Épsilon Tarragona revisará tu mensaje en infoepsilontgn@gmail.com. Te responderemos pronto."
+    );
+    if (window.history && window.history.replaceState) {
+      window.history.replaceState(null, "", window.location.pathname);
     }
   }
 
@@ -465,34 +486,39 @@ if (contactForm && formStatus && submitBtn) {
     submitBtn.disabled = true;
     const textoOriginalBtn = submitBtn.textContent;
     submitBtn.textContent = "Enviando mensaje...";
-    mostrarEstado("loading", "Enviando solicitud al servicio de correo...");
+    mostrarEstado("loading", "Procesando el envío de tu mensaje...");
+
+    // 4. Si el usuario abre la web de forma local (file:///) donde los navegadores
+    // bloquean fetch por política CORS de origen nulo, enviamos mediante envío nativo HTML
+    if (window.location.protocol === "file:") {
+      contactForm.submit();
+      return;
+    }
 
     try {
-      // 4. Envío único a FormSubmit mediante API JSON
-      // Justificación técnica antispam:
-      // FormSubmit en modo AJAX requiere _captcha en "false" para responder JSON sin redirigir de página.
-      // La protección contra spam se delega en el campo honeypot (_honey) del HTML.
-      const respuesta = await fetch("https://formsubmit.co/ajax/infoepsilontgn@gmail.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify({
-          "Nombre": nombre,
-          "Email": email,
-          "Posición Principal": posPrincipal,
-          "Posición Secundaria": posSecundaria,
-          "Asunto": asunto,
-          "Mensaje": mensaje,
-          "_subject": `Nuevo contacto web Épsilon FC: ${asunto}`,
-          "_replyto": email,
-          "_template": "table",
-          "_captcha": "false"
-        })
-      });
+      // 5. Envío mediante FormData compatible con FormSubmit AJAX (evita fallos de OPTIONS preflight)
+      const formData = new FormData(contactForm);
+      formData.set("_subject", `Nuevo contacto web Épsilon FC: ${asunto}`);
+      formData.set("_replyto", email);
 
-      // 5. Lectura segura del cuerpo de respuesta
+      let respuesta = null;
+      try {
+        respuesta = await fetch("https://formsubmit.co/ajax/infoepsilontgn@gmail.com", {
+          method: "POST",
+          headers: {
+            "Accept": "application/json"
+          },
+          body: formData
+        });
+      } catch (errRed) {
+        // En caso de bloqueo por extensiones, adblockers o restricciones de red,
+        // recurrimos al envío nativo del formulario para asegurar la entrega del mensaje
+        console.warn("Fallo en fetch asíncrono, enviando de forma nativa a FormSubmit:", errRed);
+        contactForm.submit();
+        return;
+      }
+
+      // 6. Lectura segura del cuerpo de respuesta
       let data = null;
       try {
         data = await respuesta.json();
@@ -512,11 +538,10 @@ if (contactForm && formStatus && submitBtn) {
           "Activación pendiente en Gmail:",
           "FormSubmit ha enviado un correo de verificación a infoepsilontgn@gmail.com. Abre Gmail (revisa la bandeja de entrada y la carpeta Spam), busca el correo de FormSubmit y pulsa en 'Activate Form'. Tus datos se conservan en el formulario."
         );
-        // NO se borran los datos del formulario
         return;
       }
 
-      // Verificación estricta: NO basta con respuesta.ok, data.success debe confirmar la aceptación
+      // Verificación estricta de éxito
       const exitoConfirmado = respuesta.ok && data && (data.success === true || data.success === "true");
 
       if (exitoConfirmado) {
@@ -525,31 +550,18 @@ if (contactForm && formStatus && submitBtn) {
           "Mensaje aceptado correctamente para su envío.",
           "El equipo del Épsilon Tarragona revisará tu mensaje en infoepsilontgn@gmail.com. Te responderemos pronto."
         );
-        // Se resetea el formulario ÚNICAMENTE tras confirmación explícita
         contactForm.reset();
         return;
       }
 
-      // Si el servidor respondió con un fallo controlado o código HTTP de error
-      const detalleError = mensajeServidor || `Error HTTP ${respuesta.status}`;
-      mostrarEstado(
-        "error",
-        "El servicio no pudo procesar el envío.",
-        `Detalle del servidor: ${detalleError}. Los datos no se han borrado.`
-      );
-      // NO se resetea el formulario
+      // Si el servicio no pudo procesar la solicitud AJAX, recurrimos a envío estándar
+      console.warn("Respuesta no exitosa en AJAX, reintentando de forma nativa:", mensajeServidor);
+      contactForm.submit();
 
-    } catch (errorConexion) {
-      // 6. Error de red (sin conexión a internet, bloqueo o servicio caído)
-      console.warn("Error de conexión al enviar el formulario:", errorConexion);
-      mostrarEstado(
-        "error",
-        "Error de conexión al enviar el mensaje.",
-        "Comprueba tu conexión a internet o inténtalo más tarde. Los datos del formulario se han conservado."
-      );
-      // NO se resetea el formulario
+    } catch (errorGeneral) {
+      console.error("Error inesperado en el formulario:", errorGeneral);
+      contactForm.submit();
     } finally {
-      // 7. Siempre reactivar el botón de envío y restaurar su texto
       submitBtn.disabled = false;
       submitBtn.textContent = textoOriginalBtn;
     }
