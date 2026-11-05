@@ -264,8 +264,13 @@
         </ul>
       </div>
 
-      <!-- Formulario de contacto directo hacia infoepsilontgn@gmail.com -->
-      <form class="contact-form" id="contactForm" novalidate>
+      <!-- Formulario de contacto hacia Web3Forms con autoenvío -->
+      <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="9a8f1047-034d-4ce2-a923-ecf4b2d70800">
+        <input type="hidden" name="subject" value="Nuevo contacto web - Épsilon Tarragona">
+        <input type="hidden" name="from_name" value="Web Épsilon Tarragona">
+        <!-- Campo honeypot anti-spam para bloquear bots silenciosamente -->
+        <input type="checkbox" name="botcheck" style="display: none;">
         <label for="nombre">Nombre</label>
         <input type="text" id="nombre" name="nombre" placeholder="Tu nombre y apellidos" required>
 

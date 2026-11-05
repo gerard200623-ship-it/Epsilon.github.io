@@ -380,14 +380,12 @@ if (calNextMonthBtn) {
 renderCalendar();
 
 // =========================================
-// FORMULARIO DE CONTACTO (AUTOENVÍO SILENCIOSO HACIA infoepsilontgn@gmail.com)
+// FORMULARIO DE CONTACTO (AUTOENVÍO SILENCIOSO CON WEB3FORMS HACIA infoepsilontgn@gmail.com)
 // =========================================
 
-// Identificador para autoenvío en segundo plano sin abrir ventanas de correo:
-// - Si usas Formspree: escribe tu ID (ej: "mknpqrst")
-// - Si usas Web3Forms: escribe tu Access Key (ej: "a1b2c3d4-...")
+// Access Key configurada para autoenvío en segundo plano:
 const FORMSPREE_ID = ""; 
-const WEB3FORMS_KEY = "";
+const WEB3FORMS_KEY = "9a8f1047-034d-4ce2-a923-ecf4b2d70800";
 
 const contactForm = document.getElementById("contactForm");
 const formStatus = document.getElementById("formStatus");
@@ -548,6 +546,7 @@ if (contactForm && formStatus && submitBtn) {
           endpoint = "https://api.web3forms.com/submit";
           bodyPayload = {
             access_key: WEB3FORMS_KEY,
+            subject: `Nuevo contacto web Épsilon FC: ${asunto}`,
             Nombre: nombre,
             Email: email,
             "Posición Principal": posPrincipal,
