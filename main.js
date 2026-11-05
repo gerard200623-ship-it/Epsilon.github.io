@@ -380,8 +380,14 @@ if (calNextMonthBtn) {
 renderCalendar();
 
 // =========================================
-// FORMULARIO DE CONTACTO DIRECTO HACIA infoepsilontgn@gmail.com
+// FORMULARIO DE CONTACTO (AUTOENVÍO SILENCIOSO HACIA infoepsilontgn@gmail.com)
 // =========================================
+
+// Identificador para autoenvío en segundo plano sin abrir ventanas de correo:
+// - Si usas Formspree: escribe tu ID (ej: "mknpqrst")
+// - Si usas Web3Forms: escribe tu Access Key (ej: "a1b2c3d4-...")
+const FORMSPREE_ID = ""; 
+const WEB3FORMS_KEY = "";
 
 const contactForm = document.getElementById("contactForm");
 const formStatus = document.getElementById("formStatus");
@@ -412,23 +418,21 @@ if (contactForm && formStatus && submitBtn) {
   }
 
   /**
-   * Presenta la confirmación con los botones de envío directo para Gmail y aplicaciones de correo.
-   * @param {string} urlGmail - Enlace directo para redactar en Gmail Web.
-   * @param {string} urlMailto - Enlace estándar para clientes nativos (Outlook, Mail, etc.).
+   * Presenta la opción de envío directo por correo cuando no hay pasarela de autoenvío configurada.
    */
-  function mostrarOpcionesEnvio(urlGmail, urlMailto) {
+  function mostrarOpcionesEnvioDirecto(urlGmail, urlMailto) {
     formStatus.style.display = "block";
-    formStatus.className = "form-status-msg status-success";
+    formStatus.className = "form-status-msg status-warning";
     formStatus.replaceChildren();
 
     const strongEl = document.createElement("strong");
-    strongEl.textContent = "Borrador generado para infoepsilontgn@gmail.com";
+    strongEl.textContent = "Autoenvío pendiente de activar:";
     formStatus.appendChild(strongEl);
 
     formStatus.appendChild(document.createElement("br"));
 
     const smallEl = document.createElement("small");
-    smallEl.textContent = "Se ha preparado el mensaje con todos tus datos. Pulsa en el botón según cómo prefieras enviarlo:";
+    smallEl.textContent = "Para enviar automáticamente sin abrir Gmail, introduce un Formspree ID o Web3Forms Key en main.js. Mientras tanto, puedes enviar tu borrador con 1 clic aquí:";
     formStatus.appendChild(smallEl);
 
     const actionsGroup = document.createElement("div");
@@ -439,7 +443,7 @@ if (contactForm && formStatus && submitBtn) {
     btnGmail.target = "_blank";
     btnGmail.rel = "noopener noreferrer";
     btnGmail.className = "status-action-btn";
-    btnGmail.textContent = "Abrir en Gmail Web";
+    btnGmail.textContent = "Abrir y enviar en Gmail";
     actionsGroup.appendChild(btnGmail);
 
     const btnMailto = document.createElement("a");
@@ -451,7 +455,7 @@ if (contactForm && formStatus && submitBtn) {
     formStatus.appendChild(actionsGroup);
   }
 
-  contactForm.addEventListener("submit", (e) => {
+  contactForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     // 1. Obtener los campos del formulario
@@ -501,7 +505,7 @@ if (contactForm && formStatus && submitBtn) {
       return;
     }
 
-    // 3. Generar cuerpo y enlaces directos seguros hacia Gmail y clientes estándar
+    // 3. Preparar URLs directas de respaldo
     const asuntoFinal = encodeURIComponent(`Contacto Épsilon FC: ${asunto}`);
     const cuerpoTexto =
       `Hola equipo Épsilon Tarragona,\n\n` +
@@ -515,19 +519,81 @@ if (contactForm && formStatus && submitBtn) {
       `---\nÉpsilon Tarragona - Fútbol 7 amateur`;
 
     const cuerpoFinal = encodeURIComponent(cuerpoTexto);
-
     const urlGmail = `https://mail.google.com/mail/?view=cm&fs=1&to=infoepsilontgn@gmail.com&su=${asuntoFinal}&body=${cuerpoFinal}`;
     const urlMailto = `mailto:infoepsilontgn@gmail.com?subject=${asuntoFinal}&body=${cuerpoFinal}`;
 
-    // 4. Intentar abrir automáticamente Gmail Web en una nueva pestaña
-    const nuevaPestana = window.open(urlGmail, "_blank");
+    // 4. Si hay configurado un servicio de autoenvío en segundo plano (Formspree o Web3Forms)
+    if (FORMSPREE_ID || WEB3FORMS_KEY) {
+      submitBtn.disabled = true;
+      const textoOriginalBtn = submitBtn.textContent;
+      submitBtn.textContent = "Enviando mensaje...";
+      mostrarEstado("loading", "Enviando tu mensaje en segundo plano...");
 
-    // Si el navegador bloqueó la ventana emergente, abrimos mediante mailto
-    if (!nuevaPestana || nuevaPestana.closed || typeof nuevaPestana.closed === "undefined") {
-      window.location.href = urlMailto;
+      try {
+        let endpoint = "";
+        let bodyPayload = {};
+
+        if (FORMSPREE_ID) {
+          endpoint = `https://formspree.io/f/${FORMSPREE_ID}`;
+          bodyPayload = {
+            Nombre: nombre,
+            Email: email,
+            "Posición Principal": posPrincipal,
+            "Posición Secundaria": posSecundaria,
+            Asunto: asunto,
+            Mensaje: mensaje,
+            _replyto: email
+          };
+        } else if (WEB3FORMS_KEY) {
+          endpoint = "https://api.web3forms.com/submit";
+          bodyPayload = {
+            access_key: WEB3FORMS_KEY,
+            Nombre: nombre,
+            Email: email,
+            "Posición Principal": posPrincipal,
+            "Posición Secundaria": posSecundaria,
+            Asunto: asunto,
+            Mensaje: mensaje,
+            from_name: "Web Épsilon Tarragona"
+          };
+        }
+
+        const respuesta = await fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify(bodyPayload)
+        });
+
+        const resultado = await respuesta.json().catch(() => ({}));
+
+        if (respuesta.ok && (resultado.ok || resultado.success)) {
+          mostrarEstado(
+            "success",
+            "¡Mensaje enviado con éxito!",
+            "El equipo del Épsilon Tarragona revisará tu mensaje en infoepsilontgn@gmail.com. Te responderemos pronto."
+          );
+          contactForm.reset();
+          return;
+        } else {
+          const mensajeError = resultado.message || resultado.error || "El servicio no pudo procesar la solicitud.";
+          console.warn("Error en autoenvío:", mensajeError);
+          mostrarOpcionesEnvioDirecto(urlGmail, urlMailto);
+        }
+      } catch (errRed) {
+        console.warn("Fallo de red en autoenvío:", errRed);
+        mostrarOpcionesEnvioDirecto(urlGmail, urlMailto);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = textoOriginalBtn;
+      }
+      return;
     }
 
-    // 5. Mostrar siempre los botones de confirmación y acceso rápido en la página
-    mostrarOpcionesEnvio(urlGmail, urlMailto);
+    // 5. Si no hay ID de autoenvío configurado todavía, abrimos el borrador en Gmail
+    window.open(urlGmail, "_blank");
+    mostrarOpcionesEnvioDirecto(urlGmail, urlMailto);
   });
 }
