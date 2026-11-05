@@ -16,12 +16,12 @@ Sitio web oficial del club de fútbol 7 amateur **Épsilon Tarragona** (Épsilon
   - Ash (Delantero)
   - Delantero (Delantero)
 - **Calendario dinámico de competición**: Rejilla mensual completa con selector de mes, días de la semana y estados de partidos/entrenamientos.
-- **Formulario de captación y contacto**:
+- **Formulario de captación y contacto multicanal**:
   - Campos: Nombre, Email, Posición Principal (desplegable), Posición Secundaria (desplegable), Asunto y Mensaje.
   - Validación completa en cliente.
-  - Integración mediante el servicio seguro **FormSubmit** hacia `infoepsilontgn@gmail.com`.
-  - Protección antispam mediante campo honeypot (`_honey`) y sanitización con `textContent`.
-  - Bloqueo de doble clic durante el envío y conservación de datos en caso de fallo de red.
+  - Envío web mediante **ShipMyForm** hacia `infoepsilontgn@gmail.com`.
+  - Opción de apertura directa en Gmail / cliente de correo con los datos precompletados.
+  - Protección antispam mediante campo honeypot (`_gotcha`) y sanitización segura.
 
 ---
 
@@ -40,14 +40,17 @@ Sitio web oficial del club de fútbol 7 amateur **Épsilon Tarragona** (Épsilon
 
 ---
 
-## Activación del Formulario de Contacto (FormSubmit)
+## Formulario de Contacto (ShipMyForm + Correo Directo)
 
-Para que los mensajes enviados a través del formulario lleguen a `infoepsilontgn@gmail.com`, FormSubmit requiere una activación única:
+Para garantizar que los mensajes lleguen siempre a `infoepsilontgn@gmail.com` sin caídas:
 
-1. **Primer envío**: Rellena el formulario de la web y pulsa en **"Enviar mensaje"**.
-2. **Revisar Gmail**: Accede a `infoepsilontgn@gmail.com` y revisa la bandeja de entrada y la carpeta de **Spam / Correo no deseado**.
-3. **Activar**: Abre el correo enviado por *FormSubmit* y haz clic en el botón **"Activate Form"**.
-4. ¡Listo! A partir de ese momento, todas las solicitudes y mensajes llegarán directamente a la bandeja de entrada.
+1. **Envío desde la web (ShipMyForm)**:
+   - Al enviar el formulario por primera vez, el servicio remite un correo de confirmación a `infoepsilontgn@gmail.com`.
+   - Revisa la bandeja de entrada y la carpeta de **Spam / Correo no deseado** y pulsa en el enlace de activación.
+   - A partir de ese momento, todos los mensajes llegarán directamente a tu correo.
+
+2. **Opción directa (Gmail / Correo)**:
+   - Los usuarios también disponen de un botón secundario que abre automáticamente su aplicación de correo (Gmail, Outlook, etc.) con los datos del formulario ya redactados y dirigidos a `infoepsilontgn@gmail.com`.
 
 ---
 
@@ -57,5 +60,5 @@ Este proyecto es 100% estático y compatible con GitHub Pages:
 
 1. Sube este repositorio a GitHub.
 2. Ve a **Settings** > **Pages** dentro de tu repositorio.
-3. En **Source**, selecciona la rama `main` (o `master`) y la carpeta `/ (root)`.
+3. En **Source**, selecciona la rama `main` y la carpeta `/ (root)`.
 4. Pulsa **Save**. En un par de minutos tu web estará disponible en línea en una URL del tipo `https://tu-usuario.github.io/nombre-repo/`.

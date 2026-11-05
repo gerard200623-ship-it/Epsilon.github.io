@@ -380,21 +380,22 @@ if (calNextMonthBtn) {
 renderCalendar();
 
 // =========================================
-// FORMULARIO DE CONTACTO (SISTEMA INTEGRAL: FormSubmit hacia infoepsilontgn@gmail.com)
+// FORMULARIO DE CONTACTO (SISTEMA MULTICANAL: ShipMyForm + Acceso Directo Gmail)
 // =========================================
 
 const contactForm = document.getElementById("contactForm");
 const formStatus = document.getElementById("formStatus");
 const submitBtn = document.getElementById("submitBtn");
-const nextField = document.getElementById("_nextField");
+const redirectField = document.getElementById("_redirectField");
+const btnGmailDirect = document.getElementById("btnGmailDirect");
 
 if (contactForm && formStatus && submitBtn) {
   /**
-   * Configura la URL de retorno automático para cuando se complete el envío.
+   * Configura la URL de redirección tras el envío exitoso.
    */
-  if (nextField) {
+  if (redirectField) {
     const urlBase = window.location.href.split("#")[0];
-    nextField.value = `${urlBase}#enviado`;
+    redirectField.value = `${urlBase}#enviado`;
   }
 
   /**
@@ -420,16 +421,40 @@ if (contactForm && formStatus && submitBtn) {
     }
   }
 
-  // Comprobar al cargar la página si volvemos de un envío exitoso mediante redirección
+  // Comprobar al cargar la página si volvemos de un envío exitoso
   if (window.location.hash === "#enviado") {
     mostrarEstado(
       "success",
-      "Mensaje enviado correctamente.",
+      "Mensaje enviado con éxito.",
       "El equipo del Épsilon Tarragona revisará tu mensaje en infoepsilontgn@gmail.com. Te responderemos pronto."
     );
     if (window.history && window.history.replaceState) {
       window.history.replaceState(null, "", window.location.pathname);
     }
+  }
+
+  // Botón directo para redactar desde el cliente de correo del usuario (Gmail / Outlook / Apple Mail)
+  if (btnGmailDirect) {
+    btnGmailDirect.addEventListener("click", () => {
+      const nombre = document.getElementById("nombre").value.trim() || "Contacto Web";
+      const email = document.getElementById("email").value.trim() || "No especificado";
+      const posPrincipal = document.getElementById("posicion_principal").value || "No especificada";
+      const posSecundaria = document.getElementById("posicion_secundaria").value || "Ninguna";
+      const asunto = document.getElementById("asunto").value.trim() || "Contacto Épsilon Tarragona";
+      const mensaje = document.getElementById("mensaje").value.trim() || "";
+
+      const asuntoFinal = encodeURIComponent(`Épsilon FC: ${asunto}`);
+      const cuerpoFinal = encodeURIComponent(
+        `Nombre: ${nombre}\n` +
+        `Email de contacto: ${email}\n` +
+        `Posición principal: ${posPrincipal}\n` +
+        `Posición secundaria: ${posSecundaria}\n\n` +
+        `Mensaje:\n${mensaje}\n`
+      );
+
+      // Abre el cliente de correo por defecto del usuario
+      window.location.href = `mailto:infoepsilontgn@gmail.com?subject=${asuntoFinal}&body=${cuerpoFinal}`;
+    });
   }
 
   contactForm.addEventListener("submit", async (e) => {
@@ -496,14 +521,12 @@ if (contactForm && formStatus && submitBtn) {
     }
 
     try {
-      // 5. Envío mediante FormData compatible con FormSubmit AJAX (evita fallos de OPTIONS preflight)
+      // 5. Envío asíncrono con FormData
       const formData = new FormData(contactForm);
-      formData.set("_subject", `Nuevo contacto web Épsilon FC: ${asunto}`);
-      formData.set("_replyto", email);
 
       let respuesta = null;
       try {
-        respuesta = await fetch("https://formsubmit.co/ajax/infoepsilontgn@gmail.com", {
+        respuesta = await fetch("https://shipmyform.com/to/infoepsilontgn@gmail.com", {
           method: "POST",
           headers: {
             "Accept": "application/json"
@@ -513,7 +536,7 @@ if (contactForm && formStatus && submitBtn) {
       } catch (errRed) {
         // En caso de bloqueo por extensiones, adblockers o restricciones de red,
         // recurrimos al envío nativo del formulario para asegurar la entrega del mensaje
-        console.warn("Fallo en fetch asíncrono, enviando de forma nativa a FormSubmit:", errRed);
+        console.warn("Fallo en fetch asíncrono, enviando de forma nativa:", errRed);
         contactForm.submit();
         return;
       }
@@ -526,7 +549,7 @@ if (contactForm && formStatus && submitBtn) {
         console.warn("La respuesta no contiene JSON válido:", errJson);
       }
 
-      const mensajeServidor = (data && data.message) ? String(data.message) : "";
+      const mensajeServidor = (data && (data.message || data.error)) ? String(data.message || data.error) : "";
       const mensajeNormalizado = mensajeServidor.toLowerCase();
 
       // Detección de activación pendiente en Gmail
@@ -536,18 +559,16 @@ if (contactForm && formStatus && submitBtn) {
         mostrarEstado(
           "warning",
           "Activación pendiente en Gmail:",
-          "FormSubmit ha enviado un correo de verificación a infoepsilontgn@gmail.com. Abre Gmail (revisa la bandeja de entrada y la carpeta Spam), busca el correo de FormSubmit y pulsa en 'Activate Form'. Tus datos se conservan en el formulario."
+          "Se ha enviado un correo de verificación a infoepsilontgn@gmail.com. Abre Gmail (revisa la bandeja de entrada y la carpeta Spam) y pulsa en el enlace de activación. Tus datos se conservan en el formulario."
         );
         return;
       }
 
-      // Verificación estricta de éxito
-      const exitoConfirmado = respuesta.ok && data && (data.success === true || data.success === "true");
-
-      if (exitoConfirmado) {
+      // Verificación de éxito (HTTP 200..299 o success = true)
+      if (respuesta.ok) {
         mostrarEstado(
           "success",
-          "Mensaje aceptado correctamente para su envío.",
+          "Mensaje enviado con éxito.",
           "El equipo del Épsilon Tarragona revisará tu mensaje en infoepsilontgn@gmail.com. Te responderemos pronto."
         );
         contactForm.reset();
