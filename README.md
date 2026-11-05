@@ -52,8 +52,8 @@ El formulario envía automáticamente los mensajes en segundo plano hacia `infoe
 
 Este proyecto es 100% estático y compatible con GitHub Pages:
 
-1. Repositorio en GitHub: `https://github.com/gerard200623-ship-it/Epsilon`
-2. Ve a **Settings** > **Pages** dentro de tu repositorio.
+1. Repositorio en GitHub: `https://github.com/gerard200623-ship-it/epsilon.github.io`
+2. Ve a **Settings** > **Pages** dentro de tu repositorio (`https://github.com/gerard200623-ship-it/epsilon.github.io/settings/pages`).
 3. En **Source**, selecciona la rama `main` y la carpeta `/ (root)`.
 4. Pulsa **Save**. En un par de minutos tu web estará disponible en línea en:  
-   `https://gerard200623-ship-it.github.io/Epsilon/`
+   `https://gerard200623-ship-it.github.io/epsilon.github.io/`
